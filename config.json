@@ -1,0 +1,204 @@
+{
+  "logo_path": "logo_seifert-it.png",
+  "legal_ref_catalog": {
+    "gdpr_art6": {
+      "label": "DSGVO Art. 6 – Rechtmäßigkeit der Verarbeitung",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32016R0679#d1e1489-1-1"
+    },
+    "gdpr_art7": {
+      "label": "DSGVO Art. 7 – Bedingungen für die Einwilligung",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32016R0679#d1e1559-1-1"
+    },
+    "gdpr_art13": {
+      "label": "DSGVO Art. 13 – Informationspflicht bei Erhebung",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32016R0679#d1e1901-1-1"
+    },
+    "gdpr_art17": {
+      "label": "DSGVO Art. 17 – Recht auf Löschung",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32016R0679#d1e2331-1-1"
+    },
+    "gdpr_art21": {
+      "label": "DSGVO Art. 21 – Widerspruchsrecht",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32016R0679#d1e2562-1-1"
+    },
+    "gdpr_art32": {
+      "label": "DSGVO Art. 32 – Sicherheit der Verarbeitung",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32016R0679#d1e3022-1-1"
+    }
+  },
+  "rules_ordered": [
+    {
+      "id": "r0_unknown_identifiable_online_prominent",
+      "when": {
+        "identifiable": true,
+        "consent_status": "unbekannt",
+        "prominent_subject": true,
+        "channel_in": ["website", "social"]
+      },
+      "decision": "NOT_ALLOWED",
+      "message": "🔴 NICHT ERLAUBT: Einwilligungsstatus unbekannt + hervorgehobene Person (portraitähnlich) + online.",
+      "extra_reasons": [
+        "Wenn eine Person deutlich im Fokus steht, ist das Risiko ähnlich wie bei einem Portrait.",
+        "Einwilligung klären oder Foto so bearbeiten, dass niemand hervorgehoben/erkennbar ist."
+      ],
+      "legal_refs": ["gdpr_art6", "gdpr_art7", "gdpr_art13"]
+    },
+    {
+      "id": "r0_partial_identifiable_online_prominent",
+      "when": {
+        "identifiable": true,
+        "consent_status": "teilweise",
+        "prominent_subject": true,
+        "channel_in": ["website", "social"]
+      },
+      "decision": "LIMITED",
+      "message": "🟡 EINGESCHRÄNKT: Teilweise Einwilligung + hervorgehobene Person + online.",
+      "extra_reasons": [
+        "Hervorgehobene Personen dürfen nur dann erkennbar sein, wenn genau diese Personen eingewilligt haben.",
+        "Nicht-einwilligende Personen müssen unkenntlich gemacht/entfernt werden."
+      ],
+      "legal_refs": ["gdpr_art6", "gdpr_art7"]
+    },
+
+    {
+      "id": "r1a_unknown_identifiable_online_group_not_prominent",
+      "when": {
+        "identifiable": true,
+        "consent_status": "unbekannt",
+        "group_photo": true,
+        "prominent_subject": false,
+        "channel_in": ["website", "social"]
+      },
+      "decision": "LIMITED",
+      "message": "🟡 EINGESCHRÄNKT: Einwilligungsstatus ist unbekannt (Gruppenfoto ohne hervorgehobene Person).",
+      "extra_reasons": [
+        "Bei echten Gruppenübersichten kann das Risiko geringer sein, trotzdem Einwilligung möglichst klären.",
+        "Wenn einzelne Personen doch klar erkennbar hervortreten: wie Portrait behandeln (nicht veröffentlichen oder unkenntlich machen)."
+      ],
+      "legal_refs": ["gdpr_art6", "gdpr_art7", "gdpr_art13"]
+    },
+    {
+      "id": "r1b_unknown_identifiable_online_single",
+      "when": {
+        "identifiable": true,
+        "consent_status": "unbekannt",
+        "group_photo": false,
+        "channel_in": ["website", "social"]
+      },
+      "decision": "NOT_ALLOWED",
+      "message": "🔴 NICHT ERLAUBT: Einwilligungsstatus ist unbekannt (Einzelportrait/kleine Gruppe) + online.",
+      "extra_reasons": [
+        "Für eine Veröffentlichung im Internet ist eine klare Einwilligung erforderlich."
+      ],
+      "legal_refs": ["gdpr_art6", "gdpr_art7", "gdpr_art13"]
+    },
+
+    {
+      "id": "r2_partial_minors_social",
+      "when": {
+        "identifiable": true,
+        "consent_status": "teilweise",
+        "minors": true,
+        "channel_in": ["social"]
+      },
+      "decision": "NOT_ALLOWED",
+      "message": "🔴 NICHT ERLAUBT: Minderjährige + Social Media + nur teilweise Einwilligung.",
+      "extra_reasons": [
+        "In sozialen Medien ist bei Minderjährigen besondere Vorsicht geboten.",
+        "Alle erkennbaren Personen müssen eingewilligt haben."
+      ],
+      "legal_refs": ["gdpr_art6", "gdpr_art7"]
+    },
+
+    {
+      "id": "r3a_partial_identifiable_online_group_not_prominent",
+      "when": {
+        "identifiable": true,
+        "consent_status": "teilweise",
+        "group_photo": true,
+        "prominent_subject": false,
+        "channel_in": ["website", "social"]
+      },
+      "decision": "LIMITED",
+      "message": "🟡 EINGESCHRÄNKT: Gruppenfoto – nur Personen mit Einwilligung dürfen erkennbar sein.",
+      "extra_reasons": [
+        "Nicht einwilligende Personen müssen unkenntlich gemacht oder entfernt werden.",
+        "Alternativ: so zuschneiden/auswählen, dass nur Einwilligende sichtbar sind."
+      ],
+      "legal_refs": ["gdpr_art6", "gdpr_art7"]
+    },
+    {
+      "id": "r3b_partial_identifiable_online_single",
+      "when": {
+        "identifiable": true,
+        "consent_status": "teilweise",
+        "group_photo": false,
+        "channel_in": ["website", "social"]
+      },
+      "decision": "LIMITED",
+      "message": "🟡 EINGESCHRÄNKT: Einzelportrait/kleine Gruppe – nur Personen mit Einwilligung dürfen sichtbar sein.",
+      "extra_reasons": [
+        "Nicht einwilligende Personen müssen unkenntlich gemacht oder entfernt werden."
+      ],
+      "legal_refs": ["gdpr_art6", "gdpr_art7"]
+    },
+
+    {
+      "id": "r4a_unknown_identifiable_print_group",
+      "when": {
+        "identifiable": true,
+        "consent_status": "unbekannt",
+        "group_photo": true,
+        "channel_in": ["print"]
+      },
+      "decision": "LIMITED",
+      "message": "🟡 EINGESCHRÄNKT: Print ohne klare Einwilligung ist riskant (Gruppenfoto).",
+      "extra_reasons": [
+        "Auch im Printbereich sollte eine Einwilligung dokumentiert sein.",
+        "Wenn eine Person hervorgehoben ist, besonders streng prüfen."
+      ],
+      "legal_refs": ["gdpr_art6"]
+    },
+    {
+      "id": "r4b_unknown_identifiable_print_single",
+      "when": {
+        "identifiable": true,
+        "consent_status": "unbekannt",
+        "group_photo": false,
+        "channel_in": ["print"]
+      },
+      "decision": "LIMITED",
+      "message": "🟡 EINGESCHRÄNKT: Print ohne klare Einwilligung ist riskant (Einzelportrait/kleine Gruppe).",
+      "extra_reasons": [
+        "Bei Einzelportraits ist die Eingriffsintensität höher – Einwilligung nachholen oder Motiv ersetzen."
+      ],
+      "legal_refs": ["gdpr_art6"]
+    },
+
+    {
+      "id": "r5_all_identifiable",
+      "when": {
+        "identifiable": true,
+        "consent_status": "alle"
+      },
+      "decision": "ALLOWED",
+      "message": "🟢 ERLAUBT: Einwilligungen sind vollständig.",
+      "extra_reasons": [
+        "Die Veröffentlichung ist auf Basis der vorliegenden Einwilligungen zulässig."
+      ],
+      "legal_refs": ["gdpr_art6", "gdpr_art7"]
+    },
+    {
+      "id": "r6_not_identifiable",
+      "when": {
+        "identifiable": false
+      },
+      "decision": "ALLOWED",
+      "message": "🟢 ERLAUBT: Personen sind nicht erkennbar.",
+      "extra_reasons": [
+        "Nicht-erkennbare Abbildungen sind datenschutzrechtlich in der Regel unkritischer."
+      ],
+      "legal_refs": ["gdpr_art6"]
+    }
+  ]
+}
